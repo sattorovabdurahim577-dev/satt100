@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexusChat</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Authentication Screen -->
+    <div id="auth-screen" class="screen active">
+        <div class="auth-box">
+            <h1 class="logo-text">NexusChat</h1>
+            <div id="login-fields">
+                <input type="tel" id="log-phone" placeholder="Номер телефона">
+                <input type="password" id="log-pass" placeholder="Пароль">
+                <button id="login-btn" class="main-btn login-btn">Войти</button>
+                <p id="toggle-to-reg">Нет аккаунта? <span class="link-span">Регистрация</span></p>
+            </div>
+            <div id="reg-fields">
+                <input type="tel" id="reg-phone" placeholder="Номер телефона">
+                <input type="password" id="reg-pass1" placeholder="Придумайте пароль">
+                <input type="password" id="reg-pass2" placeholder="Повторите пароль">
+                <button id="register-btn" class="main-btn reg-btn">Создать и войти</button>
+                <p id="toggle-to-login">Уже есть аккаунт? <span class="link-span">Вход</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application Screen -->
+    <div id="main-screen" class="screen">
+        <header class="main-header">
+            <div class="user-info">
+                <div id="my-avatar-top" class="avatar-o">O</div>
+                <span id="my-name-display">User</span>
+                <img id="admin-badge" src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" class="v-tick">
+            </div>
+            <button id="settings-btn" class="icon-btn"><i class="fas fa-cog"></i></button>
+        </header>
+
+        <div class="slider-box">
+            <img id="main-banner-img" src="https://via.placeholder.com/1000x200/1c252e/ffffff?text=Nexus+Chat">
+        </div>
+
+        <nav class="chat-tabs">
+            <button id="tab-public" class="tab-btn active" data-tab="public">Чат с друзьями</button>
+            <button id="tab-private" class="tab-btn" data-tab="private">Чат</button>
+        </nav>
+
+        <main class="chat-content-area">
+            <section id="public-section" class="tab-content active">
+                <div class="chat-card-main" data-chat-id="group_global">
+                    <div class="avatar-o group-av"><i class="fas fa-users"></i></div>
+                    <div class="chat-info"><strong>Чат с друзьями</strong><p>Общая группа для всех</p></div>
+                </div>
+            </section>
+            <section id="private-section" class="tab-content">
+                <div class="search-box">
+                    <div class="search-inner"><i class="fas fa-search"></i><input type="text" id="user-search" placeholder="Поиск номера..."></div>
+                    <div id="search-result"></div>
+                </div>
+                <div id="active-chats-list"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Chat Screen -->
+    <div id="chat-screen" class="screen">
+        <header class="chat-header">
+            <button id="back-to-main-btn" class="back-btn"><i class="fas fa-arrow-left"></i></button>
+            <div id="chat-target-avatar" class="avatar-o mini">👤</div>
+            <div class="chat-target-info"><span id="chat-target-name">Чат</span><small id="chat-status">в сети</small></div>
+        </header>
+        <div id="chat-messages" class="chat-flow"></div>
+        <div id="reply-box" class="reply-preview">
+            <div class="reply-content"><small>Ответ на:</small><div class="reply-text"></div></div>
+            <button id="cancel-reply-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chat-input-bar">
+            <label class="attach-btn"><i class="fas fa-paperclip"></i><input type="file" id="send-photo-input" hidden accept="image/*"></label>
+            <input type="text" id="msg-input" placeholder="Сообщение">
+            <button id="send-msg-btn" class="send-btn-modern"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <h3>Настройки</h3>
+            <div id="settings-avatar-preview" class="avatar-o big">O</div>
+            <input type="text" id="new-name-input" placeholder="Введите имя">
+            <label class="upload-btn">Сменить фото <input type="file" id="profile-pic-input" hidden accept="image/*"></label>
+            <button id="request-verify-btn" class="verify-btn">Запросить галичку</button>
+            <div id="admin-requests-section">
+                <div id="requests-list"></div>
+            </div>
+            <button id="save-profile-btn" class="main-btn">Сохранить</button>
+            <button id="close-settings-btn" class="close-link">Закрыть</button>
+        </div>
+    </div>
+
+    <!-- Crop Modal -->
+    <div id="crop-modal" class="modal">
+        <div class="modal-content wide">
+            <div id="crop-viewport">
+                <div id="drag-wrapper"><img id="crop-img-preview" src=""></div>
+                <div class="crop-frame-guide"></div>
+            </div>
+            <button id="apply-crop-btn" class="main-btn">Установить</button>
+            <button id="close-crop-btn" class="close-link">Отмена</button>
+        </div>
+    </div>
+
+    <canvas id="crop-canvas"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>
