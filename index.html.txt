@@ -1,0 +1,101 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<div id="auth-screen" class="screen active">
+    <div class="auth-box">
+        <h1 class="logo-text">NexusChat</h1>
+        <div id="login-fields">
+            <input type="text" id="log-phone" placeholder="Номер телефона">
+            <input type="password" id="log-pass" placeholder="Пароль">
+            <button class="main-btn login-btn" onclick="loginUser()">Войти</button>
+            <p onclick="toggleAuth(true)">Нет аккаунта? <span style="color:#0081ff; cursor:pointer;">Регистрация</span></p>
+        </div>
+        <div id="reg-fields" style="display:none;">
+            <input type="text" id="reg-phone" placeholder="Номер телефона">
+            <input type="password" id="reg-pass1" placeholder="Придумайте пароль">
+            <input type="password" id="reg-pass2" placeholder="Повторите пароль">
+            <button class="main-btn reg-btn" onclick="registerUser()">Создать и войти</button>
+            <p onclick="toggleAuth(false)">Уже есть аккаунт? <span style="color:#0081ff; cursor:pointer;">Вход</span></p>
+        </div>
+    </div>
+</div>
+
+<div id="main-screen" class="screen">
+    <header class="main-header">
+        <div class="user-info">
+            <div id="my-avatar-top" class="avatar-o">O</div>
+            <span id="my-name-display">User</span>
+            <img id="admin-badge" src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Twitter_Verified_Badge.svg" class="v-tick">
+        </div>
+        <button class="icon-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button>
+    </header>
+
+    <div class="slider-box">
+        <img id="main-banner-img" src="https://via.placeholder.com/1000x200/1c252e/ffffff?text=Nexus+Chat" onclick="triggerAdminCrop()">
+    </div>
+
+    <div class="chat-tabs">
+        <button id="tab-public" class="tab-btn active" onclick="switchTab('public')">Чат с друзьями</button>
+        <button id="tab-private" class="tab-btn" onclick="switchTab('private')">Чат</button>
+    </div>
+
+    <div class="chat-content-area">
+        <div id="public-section" class="tab-content active">
+            <div class="chat-card-main" onclick="openChat('group_global')">
+                <div class="avatar-o group-av"><i class="fas fa-users"></i></div>
+                <div class="chat-info"><strong>Чат с друзьями</strong><p>Общая группа для всех</p></div>
+            </div>
+        </div>
+        <div id="private-section" class="tab-content">
+            <div class="search-box">
+                <div class="search-inner"><i class="fas fa-search"></i><input type="text" id="user-search" placeholder="Поиск номера..." oninput="searchUser()"></div>
+                <div id="search-result"></div>
+            </div>
+            <div id="active-chats-list"></div>
+        </div>
+    </div>
+</div>
+
+<div id="chat-screen" class="screen">
+    <div class="chat-header">
+        <button class="back-btn" onclick="closeChat()"><i class="fas fa-arrow-left"></i></button>
+        <div id="chat-target-avatar" class="avatar-o mini">👤</div>
+        <div class="chat-target-info"><span id="chat-target-name">Чат</span><small id="chat-status">в сети</small></div>
+    </div>
+    <div id="chat-messages" class="chat-flow"></div>
+    <div id="reply-box" class="reply-preview" style="display:none;">
+        <div class="reply-content"><small>Ответ на:</small><div class="reply-text"></div></div>
+        <button onclick="cancelReply()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="chat-input-bar">
+        <label class="attach-btn"><i class="fas fa-paperclip"></i><input type="file" hidden accept="image/*" onchange="sendPhoto(event)"></label>
+        <input type="text" id="msg-input" placeholder="Сообщение" onkeypress="if(event.key==='Enter')sendMessage()">
+        <button class="send-btn-modern" onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
+    </div>
+</div>
+
+<div id="settings-modal" class="modal">
+    <div class="modal-content">
+        <h3>Настройки</h3>
+        <div id="settings-avatar-preview" class="avatar-o big">O</div>
+        <input type="text" id="new-name-input" placeholder="Введите имя">
+        <label class="upload-btn">Сменить фото <input type="file" hidden accept="image/*" onchange="previewProfilePic(event)"></label>
+        <button class="verify-btn" onclick="requestVerification()">Запросить галичку</button>
+        <div id="admin-requests-section" style="display:none; margin-top:10px; border-top:1px solid #444; padding-top:10px;">
+            <div id="requests-list"></div>
+        </div>
+        <button class="main-btn" onclick="saveProfileChanges()">Сохранить</button>
+        <button class="close-link" onclick="closeSettings()">Закрыть</button>
+    </div>
+</div>
+
+<div id="crop-modal" class="modal">
+    <div class="modal-content wide">
+        <div id="crop-viewport">
+            <div id="drag-wrapper" style="position: absolute; cursor: move;"><img id="crop-img-preview" src=""></div>
+            <div class="crop-frame-guide"></div>
+        </div>
+        <button class="main-btn" style="background:#00a884" onclick="applyBannerCrop()">Установить</button>
+        <button class="close-link" onclick="closeCropModal()">Отмена</button>
+    </div>
+</div>
+<canvas id="crop-canvas" style="display:none;"></canvas>
